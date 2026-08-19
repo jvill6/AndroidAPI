@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">My API Demo</string>
+    <string name="txt_header">API CRUD Demo</string>
+    <string name="txt_btn_add">ADD A PRODUCT</string>
+    <string name="txt_hint_sku">SKU</string>
+    <string name="txt_hint_product_name">Product Name</string>
+    <string name="txt_hint_description">Description</string>
+    <string name="txt_hint_category">Category</string>
+    <string name="txt_hint_price">Price</string>
+    <string name="txt_hint_stock">Stock Quantity</string>
+    <string name="txt_hint_active">Active (1 = Yes, 0 = No)</string>
+    <string name="txt_product_name">Product Name</string>
+    <string name="txt_product_sku">SKU</string>
+    <string name="txt_product_category">Category</string>
+    <string name="txt_product_price">Price</string>
+    <string name="txt_product_stock">Stock</string>
+    <string name="txt_btn_edit">MODIFY</string>
+    <string name="txt_btn_delete">REMOVE</string>
+    <string name="price_format">Price: Php %1$s</string>
+    <string name="sku_format">SKU: %1$s</string>
+    <string name="category_format">Category: %1$s</string>
+    <string name="stock_format">Stock: %1$s</string>
+</resources>
