@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/tab_Dashboard"
+        android:title="Dashboard"
+        android:icon="@drawable/dashboard_icon"/>
+
+    <item
+        android:id="@+id/tab_Stocks"
+        android:title="Stocks"
+        android:icon="@drawable/stocks_icon"/>
+
+    <item
+        android:id="@+id/tab_Calculator"
+        android:title="Calculator"
+        android:icon="@drawable/calculator_icon"/>
+
+    <item
+        android:id="@+id/tab_NewTank"
+        android:title="New Tank"
+        android:icon="@drawable/new_tank_icon"/>
+
+</menu>
