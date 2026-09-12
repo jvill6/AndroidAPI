@@ -7,9 +7,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,22 +21,28 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity
-        implements ProductAdapter.OnProductActionListener {
-
-    private ListView listViewProducts;
-    private ProgressBar progressBar;
-    private Button btnAddProduct;
-
-    private ProductAdapter adapter;
-
-    private final List<Product> productList =
-            new ArrayList<>();
-
-    private ApiService apiService;
+public class MainActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate (Bundle savedInstanceState) {
+
+        implements ProductAdapter.OnProductActionListener
+
+    {
+
+        private ListView listViewProducts;
+        private ProgressBar progressBar;
+        private Button btnAddProduct;
+
+        private ProductAdapter adapter;
+
+        private final List<Product> productList =
+                new ArrayList<>();
+
+        private ApiService apiService;
+
+        @Override
+        protected void onCreate (Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
 

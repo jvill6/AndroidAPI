@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/screen_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:padding="15dp"
+        android:background="@drawable/white_background"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_height="30dp"
+            android:layout_width="30dp"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/profile_pic"
+            android:scaleType="centerInside"
+            android:scaleX="1.5"
+            android:scaleY="1.5"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:scaleX="1.3"
+            android:scaleY="1.3"
+            android:text="AquaFeeder"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#023178"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:text="Register New Stock"
+            android:paddingBottom="5dp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtSku"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter details to add a new fish population to your management system."
+            android:textSize="14dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/white_background">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="Register New Stock"
+                android:paddingBottom="5dp"
+                android:textColor="#023178"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txtSku"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Species Selection"
+                android:textStyle="bold"
+                android:textSize="14dp" />
+
+                <android.widget.Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/drop_down_icon"
+                    android:text="Select species..."
+                    android:padding="10dp"
+                    android:gravity="left|center"
+                    android:textAllCaps="false"
+                    android:textSize="12dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/black"
+                    android:background="@drawable/light_blue_background"
+                    />
+
+            <TextView
+                android:id="@+id/txtSku"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date Stocked"
+                android:textStyle="bold"
+                android:textSize="14dp" />
+
+            <android.widget.Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/calendar_icon"
+                android:text="mm/dd/yyyy"
+                android:padding="10dp"
+                android:gravity="left|center"
+                android:textAllCaps="false"
+                android:textSize="12dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/black"
+                android:background="@drawable/light_blue_background"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="Stock Population"
+                android:paddingTop="5dp"
+                android:textColor="#023178"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txtSku"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Number of fishes"
+                android:textStyle="bold"
+                android:textSize="14dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="e.g., 500"
+                android:padding="10dp"
+                android:gravity="left|center"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/black"
+                android:background="@drawable/light_blue_background" />
+
+            <TextView
+                android:id="@+id/txtSku"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Current Growth Stage"
+                android:textStyle="bold"
+                android:textSize="14dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.widget.Button
+                    android:layout_width="120dp"
+                    android:gravity="center"
+                    android:layout_height="35dp"
+                    android:text="Fry"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/black"
+                    android:background="@drawable/light_blue_background"/>
+
+                <android.widget.Button
+                    android:layout_width="120dp"
+                    android:gravity="center"
+                    android:layout_height="35dp"
+                    android:text="Juvenile"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/black"
+                    android:background="@drawable/light_blue_background"/>
+                <android.widget.Button
+                    android:layout_width="120dp"
+                    android:gravity="center"
+                    android:layout_height="35dp"
+                    android:text="Adult"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/black"
+                    android:background="@drawable/light_blue_background"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="Stock Assignment"
+                android:paddingTop="5dp"
+                android:textColor="#023178"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txtSku"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tank Assignment"
+                android:textStyle="bold"
+                android:textSize="14dp" />
+
+            <android.widget.Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/drop_down_icon"
+                android:text="Assign to tank..."
+                android:padding="10dp"
+                android:gravity="left|center"
+                android:textAllCaps="false"
+                android:textSize="12dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/black"
+                android:background="@drawable/light_blue_background"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <android.widget.Button
+                    android:layout_width="180dp"
+                    android:gravity="center"
+                    android:layout_height="50dp"
+                    android:text="Cancel"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="#023178"
+                    android:background="@drawable/white_background"/>
+
+                <android.widget.Button
+                    android:layout_width="180dp"
+                    android:gravity="center"
+                    android:layout_height="50dp"
+                    android:text="Register Tank"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/blue_background"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

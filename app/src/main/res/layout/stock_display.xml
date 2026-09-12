@@ -74,13 +74,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1 "
+            android:paddingRight="50dp"
             android:textSize="16sp"
             android:textStyle="italic" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:gravity="center"
+            android:background="@drawable/light_blue_background"
             android:text="Adult Stage"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -95,6 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="KOI GROUP"
+        android:textColor="#023178"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -344,6 +347,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingRight="70dp"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -362,13 +366,12 @@
             </LinearLayout>
 
             <TextView
-                android:layout_width="90dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
                 android:gravity="center"
                 android:text="Finished"
                 android:textColor="#039E89"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -394,6 +397,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:paddingRight="70dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -413,7 +417,6 @@
             <android.widget.Button
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:layout_marginStart="50dp"
                 android:background="@drawable/blue_background"
                 android:backgroundTint="@null"
                 android:text="Done"

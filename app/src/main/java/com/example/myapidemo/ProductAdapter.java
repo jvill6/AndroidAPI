@@ -56,7 +56,7 @@ public class ProductAdapter extends BaseAdapter {
 
             convertView = LayoutInflater.from(context)
                     .inflate(
-                            R.layout.product_item,
+                            R.layout.stock_display,
                             parent,
                             false
                     );
