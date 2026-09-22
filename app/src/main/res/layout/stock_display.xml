@@ -316,7 +316,7 @@
                 android:scaleType="centerInside"
                 android:scaleX="1.2"
                 android:scaleY="1.2"
-                android:src="@drawable/schedule_icon" />
+                android:src="@drawable/clock_icon" />
 
             <TextView
                 android:layout_width="wrap_content"
