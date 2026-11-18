@@ -63,42 +63,13 @@ public class ProductAdapter extends BaseAdapter {
         }
 
         TextView txtName =
-                convertView.findViewById(R.id.txtName);
-
-        TextView txtSku =
-                convertView.findViewById(R.id.txtSku);
-
-        TextView txtCategory =
-                convertView.findViewById(R.id.txtCategory);
-
-        TextView txtPrice =
-                convertView.findViewById(R.id.txtPrice);
-
-        TextView txtStock =
-                convertView.findViewById(R.id.txtStock);
-
-        Button btnEdit =
-                convertView.findViewById(R.id.btnEdit);
-
-        Button btnDelete =
-                convertView.findViewById(R.id.btnDelete);
+                convertView.findViewById(R.id.textView);
 
         Product product = products.get(position);
 
-        txtName.setText(product.getName());
-
-        txtSku.setText(context.getString(R.string.sku_format, String.valueOf(product.getSku())));
-        txtCategory.setText(context.getString(R.string.category_format, String.valueOf(product.getCategory())));
-        txtPrice.setText(context.getString(R.string.price_format, String.valueOf(product.getPrice())));
-        txtStock.setText(context.getString(R.string.stock_format, String.valueOf(product.getStock_quantity())));
-
-        btnEdit.setOnClickListener(v ->
-                listener.onEdit(product)
-        );
-
-        btnDelete.setOnClickListener(v ->
-                listener.onDelete(product)
-        );
+        if (txtName != null && product != null) {
+            txtName.setText(product.getName());
+        }
 
         return convertView;
     }

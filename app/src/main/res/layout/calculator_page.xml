@@ -6,197 +6,201 @@
     android:background="@drawable/screen_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".CalculatorActivity">
 
-    tools:context=".MainActivity">
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/screen_background">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:padding="15dp"
-        android:background="@drawable/white_background"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_height="30dp"
-            android:layout_width="30dp"
-            android:layout_marginStart="15dp"
-            android:src="@drawable/profile_pic"
-            android:scaleType="centerInside"
-            android:scaleX="1.5"
-            android:scaleY="1.5"/>
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:scaleX="1.3"
-            android:scaleY="1.3"
-            android:text="AquaFeeder"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#023178"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="15dp">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="25dp"
-        android:text="Feed Calculator"
-        android:paddingBottom="5dp"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/txtSku"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Determine the required amount feed for your aquatic stock."
-        android:textSize="14dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:background="@drawable/white_background">
-
-        <TextView
-            android:id="@+id/txtSku"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Target Species"
-            android:textStyle="bold"
-            android:layout_marginBottom="5dp"
-            android:textSize="14dp" />
-
-        <android.widget.Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/drop_down_icon"
-            android:text="Select species..."
-            android:padding="10dp"
-            android:gravity="left|center"
-            android:textAllCaps="false"
-            android:textSize="12dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/black"
-            android:background="@drawable/light_blue_background"
-            />
-
-        <TextView
-            android:id="@+id/txtSku"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Stock Population"
-            android:textStyle="bold"
-            android:layout_marginBottom="5dp"
-            android:textSize="14dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="e.g., 500"
-            android:padding="10dp"
-            android:gravity="left|center"
-            android:textAllCaps="false"
-            android:textStyle="bold"
-            android:textSize="16dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/black"
-            android:background="@drawable/light_blue_background" />
-
-        <TextView
-            android:id="@+id/txtSku"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Current Growth Stage"
-            android:textStyle="bold"
-            android:textSize="14dp" />
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bnv_button">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <android.widget.Button
-                android:layout_width="120dp"
-                android:gravity="center"
-                android:layout_height="35dp"
-                android:text="Fry"
-                android:textAllCaps="false"
-                android:textStyle="bold"
-                android:textSize="14dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/black"
-                android:background="@drawable/light_blue_background"/>
-
-            <android.widget.Button
-                android:layout_width="120dp"
-                android:gravity="center"
-                android:layout_height="35dp"
-                android:text="Juvenile"
-                android:textAllCaps="false"
-                android:textStyle="bold"
-                android:textSize="14dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/black"
-                android:background="@drawable/light_blue_background"/>
-            <android.widget.Button
-                android:layout_width="120dp"
-                android:gravity="center"
-                android:layout_height="35dp"
-                android:text="Adult"
-                android:textAllCaps="false"
-                android:textStyle="bold"
-                android:textSize="14dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/black"
-                android:background="@drawable/light_blue_background"/>
-        </LinearLayout>
-
-        <android.widget.Button
             android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="50dp"
-            android:text="Calculate Feed"
-            android:textAllCaps="false"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/white"
-            android:background="@drawable/blue_background"/>
-    </LinearLayout>
-    </LinearLayout>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/screen_background">
 
+            <LinearLayout
+                android:id="@+id/header_profile"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:padding="15dp"
+                android:background="@drawable/white_background"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/tv_bnv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"/>
+                <ImageView
+                    android:layout_height="30dp"
+                    android:layout_width="30dp"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/profile_pic"
+                    android:scaleType="centerInside"
+                    android:scaleX="1.5"
+                    android:scaleY="1.5"/>
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:scaleX="1.3"
+                    android:scaleY="1.3"
+                    android:text="AquaFeeder"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="#023178"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:text="Feed Calculator"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Determine the required amount feed for your aquatic stock."
+                    android:textSize="14dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:background="@drawable/white_background">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Target Species"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="5dp"
+                        android:textSize="14dp" />
+
+                    <android.widget.Button
+                        android:id="@+id/btn_select_species"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/drop_down_icon"
+                        android:text="Select species..."
+                        android:padding="10dp"
+                        android:gravity="left|center"
+                        android:textAllCaps="false"
+                        android:textSize="12dp"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/black"
+                        android:background="@drawable/light_blue_background" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Stock Population"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="5dp"
+                        android:textSize="14dp" />
+
+                    <EditText
+                        android:id="@+id/edt_population"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="e.g., 500"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:gravity="left|center"
+                        android:textAllCaps="false"
+                        android:textStyle="bold"
+                        android:textSize="16dp"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/black"
+                        android:background="@drawable/light_blue_background" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Current Growth Stage"
+                        android:textStyle="bold"
+                        android:textSize="14dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <android.widget.Button
+                            android:id="@+id/btn_stage_fry"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_height="35dp"
+                            android:text="Fry"
+                            android:textAllCaps="false"
+                            android:textStyle="bold"
+                            android:textSize="14dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/black"
+                            android:background="@drawable/light_blue_background"/>
+
+                        <android.widget.Button
+                            android:id="@+id/btn_stage_juvenile"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_height="35dp"
+                            android:text="Juvenile"
+                            android:textAllCaps="false"
+                            android:textStyle="bold"
+                            android:textSize="14dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/black"
+                            android:background="@drawable/light_blue_background"/>
+
+                        <android.widget.Button
+                            android:id="@+id/btn_stage_adult"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_height="35dp"
+                            android:text="Adult"
+                            android:textAllCaps="false"
+                            android:textStyle="bold"
+                            android:textSize="14dp"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/black"
+                            android:background="@drawable/light_blue_background"/>
+                    </LinearLayout>
+
+                    <android.widget.Button
+                        android:id="@+id/btn_calculate_feed"
+                        android:layout_width="match_parent"
+                        android:gravity="center"
+                        android:layout_height="50dp"
+                        android:text="Calculate Feed"
+                        android:textAllCaps="false"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/white"
+                        android:background="@drawable/blue_background"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bnv_button"

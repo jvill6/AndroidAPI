@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
 
     private static final String BASE_URL =
-            "http://pzf.22b.mytemp.website/products/";
+            "https://palegoldenrod-octopus-953641.hostingersite.com/AquaFeeder/";
 
     private static Retrofit retrofit;
 
@@ -23,5 +23,9 @@ public class RetrofitClient {
         }
 
         return retrofit;
+    }
+
+    public static ApiService getApiService() {
+        return getRetrofitInstance().create(ApiService.class);
     }
 }

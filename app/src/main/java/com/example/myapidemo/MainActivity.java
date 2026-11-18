@@ -1,539 +1,300 @@
 package com.example.myapidemo;
 
-import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity
-        implements ProductAdapter.OnProductActionListener {
+public class MainActivity extends AppCompatActivity {
 
-    private ListView listViewProducts;
-    private ProgressBar progressBar;
-    private Button btnAddProduct;
-
-    private ProductAdapter adapter;
-
-    private final List<Product> productList =
-            new ArrayList<>();
-
-    private ApiService apiService;
+    private final List<ApiModels.FishStock> stocks = new ArrayList<>();
+    private final List<ApiModels.FishTank> tanks = new ArrayList<>();
+    private final List<ApiModels.FishSpecies> species = new ArrayList<>();
+    private final List<ApiModels.FishGrowth> growth = new ArrayList<>();
+    private final List<ApiModels.FeedingSchedule> schedules = new ArrayList<>();
+    private final List<ApiModels.FeedingRecord> records = new ArrayList<>();
+    private TextView stockName;
+    private TextView population;
+    private TextView nextFeed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
-        listViewProducts =
-                findViewById(R.id.listViewProducts);
-
-        progressBar =
-                findViewById(R.id.progressBar);
-
-        btnAddProduct =
-                findViewById(R.id.btnAddProduct);
-
-        apiService =
-                RetrofitClient
-                        .getRetrofitInstance()
-                        .create(ApiService.class);
-
-        adapter = new ProductAdapter(
-                this,
-                productList,
-                this
-        );
-
-        listViewProducts.setAdapter(adapter);
-
-        btnAddProduct.setOnClickListener(v ->
-                showProductDialog(null)
-        );
-
-        loadProducts();
-    }
-
-    // ==========================================
-    // THIS IS WE READ OUR DATA FROM THE API
-    // ==========================================
-
-    private void loadProducts() {
-
-        progressBar.setVisibility(View.VISIBLE);
-
-        Call<List<Product>> call =
-                apiService.getProducts();
-
-        call.enqueue(new Callback<List<Product>>() {
-
-            @Override
-            public void onResponse(
-                    Call<List<Product>> call,
-                    Response<List<Product>> response) {
-
-                progressBar.setVisibility(View.GONE);
-
-                if (response.isSuccessful()
-                        && response.body() != null) {
-
-                    productList.clear();
-
-                    productList.addAll(
-                            response.body()
-                    );
-
-                    adapter.notifyDataSetChanged();
-
-                } else {
-
-                    showApiError(response);
-                }
-            }
-
-            @Override
-            public void onFailure(
-                    Call<List<Product>> call,
-                    Throwable t) {
-
-                progressBar.setVisibility(View.GONE);
-
-                showNetworkError(t);
-            }
-        });
-    }
-
-    // ==========================================
-    // PROMPT AND PROCESS WHEN WE CREATE AND SUBMIT A DATA TO API
-    // ==========================================
-
-    private void createProduct(Product product) {
-
-        progressBar.setVisibility(View.VISIBLE);
-
-        Call<Product> call =
-                apiService.createProduct(product);
-
-        call.enqueue(new Callback<Product>() {
-
-            @Override
-            public void onResponse(
-                    Call<Product> call,
-                    Response<Product> response) {
-
-                progressBar.setVisibility(View.GONE);
-
-                if (response.isSuccessful()) {
-
-                    Toast.makeText(
-                            MainActivity.this,
-                            "Product created successfully",
-                            Toast.LENGTH_SHORT
-                    ).show();
-
-                    loadProducts();
-
-                } else {
-
-                    showApiError(response);
-                }
-            }
-
-            @Override
-            public void onFailure(
-                    Call<Product> call,
-                    Throwable t) {
-
-                progressBar.setVisibility(View.GONE);
-
-                showNetworkError(t);
-            }
-        });
-    }
-
-    // ==========================================
-    // PROMPT AND PROCESS WHEN YOU WANT TO MODIFY OR UPDATE A DATA
-    // ==========================================
-
-    private void updateProduct(Product product) {
-
-        progressBar.setVisibility(View.VISIBLE);
-
-        Call<Product> call =
-                apiService.updateProduct(
-                        product.getId(),
-                        product
-                );
-
-        call.enqueue(new Callback<Product>() {
-
-            @Override
-            public void onResponse(
-                    Call<Product> call,
-                    Response<Product> response) {
-
-                progressBar.setVisibility(View.GONE);
-
-                if (response.isSuccessful()) {
-
-                    Toast.makeText(
-                            MainActivity.this,
-                            "Product updated successfully",
-                            Toast.LENGTH_SHORT
-                    ).show();
-
-                    loadProducts();
-
-                } else {
-
-                    showApiError(response);
-                }
-            }
-
-            @Override
-            public void onFailure(
-                    Call<Product> call,
-                    Throwable t) {
-
-                progressBar.setVisibility(View.GONE);
-
-                showNetworkError(t);
-            }
-        });
-    }
-
-    // ==========================================
-    // PROMPT AND PROCESS WHEN REMOVING OR DELETING DATA
-    // ==========================================
-
-    @Override
-    public void onDelete(Product product) {
-
-        new AlertDialog.Builder(this)
-                .setTitle("Delete Product")
-                .setMessage(
-                        "Delete " +
-                                product.getName() +
-                                "?"
-                )
-                .setPositiveButton(
-                        "DELETE",
-                        (dialog, which) ->
-                                deleteProduct(product)
-                )
-                .setNegativeButton(
-                        "CANCEL",
-                        null
-                )
-                .show();
-    }
-
-    private void deleteProduct(Product product) {
-
-        progressBar.setVisibility(View.VISIBLE);
-
-        Call<Void> call =
-                apiService.deleteProduct(
-                        product.getId()
-                );
-
-        call.enqueue(new Callback<Void>() {
-
-            @Override
-            public void onResponse(
-                    Call<Void> call,
-                    Response<Void> response) {
-
-                progressBar.setVisibility(View.GONE);
-
-                if (response.isSuccessful()) {
-
-                    Toast.makeText(
-                            MainActivity.this,
-                            "Product deleted successfully",
-                            Toast.LENGTH_SHORT
-                    ).show();
-
-                    loadProducts();
-
-                } else {
-
-                    showApiError(response);
-                }
-            }
-
-            @Override
-            public void onFailure(
-                    Call<Void> call,
-                    Throwable t) {
-
-                progressBar.setVisibility(View.GONE);
-
-                showNetworkError(t);
-            }
-        });
-    }
-
-    // ==========================================
-    // AFTER EDIT
-    // ==========================================
-
-    @Override
-    public void onEdit(Product product) {
-
-        showProductDialog(product);
-    }
-
-    // ==========================================
-    // ADD / EDIT DIALOG
-    // ==========================================
-
-    private void showProductDialog(Product existingProduct) {
-
-        View view = getLayoutInflater()
-                .inflate(
-                        R.layout.product_dialog,
-                        null
-                );
-
-        EditText edtSku =
-                view.findViewById(R.id.edtSku);
-
-        EditText edtName =
-                view.findViewById(R.id.edtName);
-
-        EditText edtDescription =
-                view.findViewById(R.id.edtDescription);
-
-        EditText edtCategory =
-                view.findViewById(R.id.edtCategory);
-
-        EditText edtPrice =
-                view.findViewById(R.id.edtPrice);
-
-        EditText edtStock =
-                view.findViewById(R.id.edtStock);
-
-        EditText edtActive =
-                view.findViewById(R.id.edtActive);
-
-        boolean editing =
-                existingProduct != null;
-
-        // Populate fields during EDIT
-        if (editing) {
-
-            edtSku.setText(
-                    existingProduct.getSku()
-            );
-
-            edtName.setText(
-                    existingProduct.getName()
-            );
-
-            edtDescription.setText(
-                    existingProduct.getDescription()
-            );
-
-            edtCategory.setText(
-                    existingProduct.getCategory()
-            );
-
-            edtPrice.setText(
-                    existingProduct.getPrice()
-            );
-
-            edtStock.setText(
-                    String.valueOf(
-                            existingProduct
-                                    .getStock_quantity()
-                    )
-            );
-
-            edtActive.setText(
-                    String.valueOf(
-                            existingProduct
-                                    .getIs_active()
-                    )
-            );
+        NavigationHelper.setupBottomNavigation(this, R.id.tab_Dashboard);
+        View headerProfile = findViewById(R.id.header_profile);
+        if (headerProfile != null) {
+            headerProfile.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
+        }
+        TextView tvViewAll = findViewById(R.id.tv_view_all);
+        if (tvViewAll != null) {
+            tvViewAll.setOnClickListener(v -> startActivity(new Intent(this, StocksActivity.class)));
         }
 
-        AlertDialog dialog =
-                new AlertDialog.Builder(this)
-                        .setTitle(
-                                editing
-                                        ? "Edit Product"
-                                        : "Add Product"
-                        )
-                        .setView(view)
-                        .setPositiveButton(
-                                editing
-                                        ? "UPDATE"
-                                        : "CREATE",
-                                null
-                        )
-                        .setNegativeButton(
-                                "CANCEL",
-                                null
-                        )
-                        .create();
+        stockName = findViewById(R.id.dashboard_stock_name);
+        population = findViewById(R.id.dashboard_population);
+        nextFeed = findViewById(R.id.dashboard_next_feed);
+        stockName.setText("Loading stocks...");
+        population.setText("--");
+        nextFeed.setText("Loading...");
+        ((TextView) findViewById(R.id.dashboard_active_tank_count)).setText("--");
+        findViewById(R.id.card_koi_group).setOnClickListener(v -> openFirstStock());
+        findViewById(R.id.recent_activity_1).setOnClickListener(v ->
+                startActivity(new Intent(this, ScheduleActivity.class)));
+        findViewById(R.id.recent_activity_2).setOnClickListener(v ->
+                startActivity(new Intent(this, ScheduleActivity.class)));
 
-        dialog.setOnShowListener(d -> {
+    }
 
-            dialog.getButton(
-                    AlertDialog.BUTTON_POSITIVE
-            ).setOnClickListener(v -> {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadDashboardData();
+    }
 
-                try {
+    private void loadDashboardData() {
+        ApiService api = RetrofitClient.getApiService();
+        api.getStocks(ApiUtils.listQuery("stocks")).enqueue(new Callback<ApiEnvelope<List<ApiModels.FishStock>>>() {
+            @Override
+            public void onResponse(Call<ApiEnvelope<List<ApiModels.FishStock>>> call,
+                                   Response<ApiEnvelope<List<ApiModels.FishStock>>> response) {
+                ApiEnvelope<List<ApiModels.FishStock>> result = validBody(response);
+                if (result != null) {
+                    stocks.clear();
+                    stocks.addAll(result.data);
+                    renderStockCard();
+                    loadSchedules();
+                }
+            }
 
-                    String sku =
-                            edtSku.getText()
-                                    .toString()
-                                    .trim();
+            @Override
+            public void onFailure(Call<ApiEnvelope<List<ApiModels.FishStock>>> call, Throwable error) {
+                ApiUtils.showFailure(MainActivity.this, error);
+            }
+        });
 
-                    String name =
-                            edtName.getText()
-                                    .toString()
-                                    .trim();
+        api.getTanks(ApiUtils.listQuery("tanks")).enqueue(new Callback<ApiEnvelope<List<ApiModels.FishTank>>>() {
+            @Override
+            public void onResponse(Call<ApiEnvelope<List<ApiModels.FishTank>>> call,
+                                   Response<ApiEnvelope<List<ApiModels.FishTank>>> response) {
+                ApiEnvelope<List<ApiModels.FishTank>> result = validBody(response);
+                if (result != null) {
+                    tanks.clear();
+                    tanks.addAll(result.data);
+                    int active = 0;
+                    for (ApiModels.FishTank tank : tanks) {
+                        if (tank.tank_status == 1) active++;
+                    }
+                    ((TextView) findViewById(R.id.dashboard_active_tank_count)).setText(String.valueOf(active));
+                }
+            }
 
-                    String description =
-                            edtDescription.getText()
-                                    .toString()
-                                    .trim();
+            @Override
+            public void onFailure(Call<ApiEnvelope<List<ApiModels.FishTank>>> call, Throwable error) {
+                ApiUtils.showFailure(MainActivity.this, error);
+            }
+        });
 
-                    String category =
-                            edtCategory.getText()
-                                    .toString()
-                                    .trim();
+        api.getSpecies(ApiUtils.listQuery("species")).enqueue(new Callback<ApiEnvelope<List<ApiModels.FishSpecies>>>() {
+            @Override
+            public void onResponse(Call<ApiEnvelope<List<ApiModels.FishSpecies>>> call,
+                                   Response<ApiEnvelope<List<ApiModels.FishSpecies>>> response) {
+                ApiEnvelope<List<ApiModels.FishSpecies>> result = validBody(response);
+                if (result != null) {
+                    species.clear();
+                    species.addAll(result.data);
+                    renderStockCard();
+                    renderRecentRecords();
+                }
+            }
 
-                    String price =
-                            edtPrice.getText()
-                                    .toString()
-                                    .trim();
+            @Override
+            public void onFailure(Call<ApiEnvelope<List<ApiModels.FishSpecies>>> call, Throwable error) {
+                ApiUtils.showFailure(MainActivity.this, error);
+            }
+        });
 
-                    int stock =
-                            Integer.parseInt(
-                                    edtStock.getText()
-                                            .toString()
-                                            .trim()
-                            );
+        api.getGrowth(ApiUtils.listQuery("growth")).enqueue(new Callback<ApiEnvelope<List<ApiModels.FishGrowth>>>() {
+            @Override
+            public void onResponse(Call<ApiEnvelope<List<ApiModels.FishGrowth>>> call,
+                                   Response<ApiEnvelope<List<ApiModels.FishGrowth>>> response) {
+                ApiEnvelope<List<ApiModels.FishGrowth>> result = validBody(response);
+                if (result != null) {
+                    growth.clear();
+                    growth.addAll(result.data);
+                }
+            }
 
-                    int active =
-                            Integer.parseInt(
-                                    edtActive.getText()
-                                            .toString()
-                                            .trim()
-                            );
+            @Override
+            public void onFailure(Call<ApiEnvelope<List<ApiModels.FishGrowth>>> call, Throwable error) {
+                ApiUtils.showFailure(MainActivity.this, error);
+            }
+        });
 
-                    Product product =
-                            new Product(
-                                    sku,
-                                    name,
-                                    description,
-                                    category,
-                                    price,
-                                    stock,
-                                    active
-                            );
-
-                    if (editing) {
-
-                        product.setId(
-                                existingProduct.getId()
-                        );
-
-                        updateProduct(product);
-
-                    } else {
-
-                        createProduct(product);
+        api.getFeedingRecords(ApiUtils.listQuery("feeding_records"))
+                .enqueue(new Callback<ApiEnvelope<List<ApiModels.FeedingRecord>>>() {
+                    @Override
+                    public void onResponse(
+                            Call<ApiEnvelope<List<ApiModels.FeedingRecord>>> call,
+                            Response<ApiEnvelope<List<ApiModels.FeedingRecord>>> response
+                    ) {
+                        ApiEnvelope<List<ApiModels.FeedingRecord>> result = validBody(response);
+                        if (result != null) {
+                            records.clear();
+                            records.addAll(result.data);
+                            renderRecentRecords();
+                        }
                     }
 
-                    dialog.dismiss();
-
-                } catch (Exception e) {
-
-                    Toast.makeText(
-                            MainActivity.this,
-                            "Please enter valid values",
-                            Toast.LENGTH_SHORT
-                    ).show();
-                }
-            });
-        });
-
-        dialog.show();
+                    @Override
+                    public void onFailure(
+                            Call<ApiEnvelope<List<ApiModels.FeedingRecord>>> call,
+                            Throwable error
+                    ) {
+                        ApiUtils.showFailure(MainActivity.this, error);
+                    }
+                });
     }
 
-    // ==========================================
-    // API ERROR
-    // ==========================================
+    private void loadSchedules() {
+        RetrofitClient.getApiService().getSchedules(ApiUtils.listQuery("feeding_schedules"))
+                .enqueue(new Callback<ApiEnvelope<List<ApiModels.FeedingSchedule>>>() {
+                    @Override
+                    public void onResponse(
+                            Call<ApiEnvelope<List<ApiModels.FeedingSchedule>>> call,
+                            Response<ApiEnvelope<List<ApiModels.FeedingSchedule>>> response
+                    ) {
+                        ApiEnvelope<List<ApiModels.FeedingSchedule>> result = validBody(response);
+                        if (result != null) {
+                            schedules.clear();
+                            for (ApiModels.FeedingSchedule item : result.data) {
+                                if (findStock(item.stock_id) != null) schedules.add(item);
+                            }
+                            renderStockCard();
+                        }
+                    }
 
-    private void showApiError(
-            Response<?> response) {
+                    @Override
+                    public void onFailure(
+                            Call<ApiEnvelope<List<ApiModels.FeedingSchedule>>> call,
+                            Throwable error
+                    ) {
+                        ApiUtils.showFailure(MainActivity.this, error);
+                    }
+                });
+    }
 
-        String errorBody = "";
+    private void renderStockCard() {
+        if (stocks.isEmpty()) {
+            stockName.setText("No fish stocks yet");
+            population.setText("0");
+            nextFeed.setText("No feeding schedule");
+            return;
+        }
+        ApiModels.FishStock stock = stocks.get(0);
+        stockName.setText(stock.stock_name);
+        population.setText(String.valueOf(stock.stock_quantity));
+        ApiModels.FeedingSchedule schedule = findSchedule(stock.stock_id);
+        nextFeed.setText(schedule == null ? "No schedule" : safe(schedule.sched_time, "Time not set"));
+    }
 
-        try {
-
-            if (response.errorBody() != null) {
-
-                errorBody =
-                        response.errorBody().string();
+    private void renderRecentRecords() {
+        for (int i = 0; i < 2; i++) {
+            int nameId = i == 0 ? R.id.dashboard_recent_name_1 : R.id.dashboard_recent_name_2;
+            int detailId = i == 0 ? R.id.dashboard_recent_detail_1 : R.id.dashboard_recent_detail_2;
+            int timeId = i == 0 ? R.id.dashboard_recent_time_1 : R.id.dashboard_recent_time_2;
+            TextView name = findViewById(nameId);
+            TextView detail = findViewById(detailId);
+            TextView time = findViewById(timeId);
+            if (i >= records.size()) {
+                name.setText("No recent feeding");
+                detail.setText("");
+                time.setText("");
+                continue;
             }
-
-        } catch (Exception e) {
-
-            errorBody = e.getMessage();
+            ApiModels.FeedingRecord record = records.get(i);
+            ApiModels.FishStock stock = findStock(record.stock_id);
+            ApiModels.FeedingSchedule schedule = findScheduleById(record.sched_id);
+            name.setText(stock == null ? "Stock " + record.stock_id : stock.stock_name);
+            detail.setText(safe(record.record_status, "Feeding recorded"));
+            time.setText(safe(record.record_date_time, schedule == null ? "" : schedule.sched_time));
         }
-
-        String message =
-                "HTTP " +
-                        response.code() +
-                        "\n" +
-                        response.message();
-
-        if (!errorBody.isEmpty()) {
-
-            message += "\n\n" + errorBody;
-        }
-
-        new AlertDialog.Builder(this)
-                .setTitle("API Error")
-                .setMessage(message)
-                .setPositiveButton("OK", null)
-                .show();
     }
 
-    // ==========================================
-    // NETWORK ERROR
-    // ==========================================
+    private void openFirstStock() {
+        if (stocks.isEmpty()) {
+            startActivity(new Intent(this, StocksActivity.class));
+            return;
+        }
+        ApiModels.FishStock stock = stocks.get(0);
+        ApiModels.FishSpecies fishSpecies = findSpecies(stock.species_id);
+        ApiModels.FishTank tank = findTank(stock.tank_id);
+        ApiModels.FishGrowth fishGrowth = findGrowth(stock.growth_id);
+        Intent intent = new Intent(this, StockDisplayActivity.class);
+        intent.putExtra("stock_id", stock.stock_id);
+        intent.putExtra("growth_id", stock.growth_id);
+        intent.putExtra("species_id", stock.species_id);
+        intent.putExtra("tank_id", stock.tank_id);
+        intent.putExtra("stock_name", stock.stock_name);
+        intent.putExtra("species_name", fishSpecies == null ? "" : safe(fishSpecies.species_name, fishSpecies.scientific_name));
+        intent.putExtra("tank_name", tank == null ? "Tank " + stock.tank_id : tank.tank_name);
+        intent.putExtra("growth_stage", fishGrowth == null ? "" : fishGrowth.growth_stage);
+        intent.putExtra("stock_quantity", stock.stock_quantity);
+        intent.putExtra("date_added", stock.date_added);
+        startActivity(intent);
+    }
 
-    private void showNetworkError(Throwable t) {
+    private ApiModels.FishStock findStock(int id) {
+        for (ApiModels.FishStock item : stocks) if (item.stock_id == id) return item;
+        return null;
+    }
 
-        new AlertDialog.Builder(this)
-                .setTitle("Connection Error")
-                .setMessage(
-                        t.getClass()
-                                .getSimpleName()
-                                + "\n\n"
-                                + t.getMessage()
-                )
-                .setPositiveButton("OK", null)
-                .show();
+    private ApiModels.FishSpecies findSpecies(int id) {
+        for (ApiModels.FishSpecies item : species) if (item.species_id == id) return item;
+        return null;
+    }
+
+    private ApiModels.FishTank findTank(int id) {
+        for (ApiModels.FishTank item : tanks) if (item.tank_id == id) return item;
+        return null;
+    }
+
+    private ApiModels.FishGrowth findGrowth(int id) {
+        for (ApiModels.FishGrowth item : growth) if (item.growth_id == id) return item;
+        return null;
+    }
+
+    private ApiModels.FeedingSchedule findSchedule(int stockId) {
+        for (ApiModels.FeedingSchedule item : schedules) if (item.stock_id == stockId) return item;
+        return null;
+    }
+
+    private ApiModels.FeedingSchedule findScheduleById(int scheduleId) {
+        for (ApiModels.FeedingSchedule item : schedules) if (item.sched_id == scheduleId) return item;
+        return null;
+    }
+
+    private String safe(String value, String fallback) {
+        return value == null || value.trim().isEmpty() ? fallback : value;
+    }
+
+    private <T> ApiEnvelope<List<T>> validBody(Response<ApiEnvelope<List<T>>> response) {
+        if (!response.isSuccessful() || response.body() == null
+                || !"success".equalsIgnoreCase(response.body().status) || response.body().data == null) {
+            ApiUtils.showFailure(this, response);
+            return null;
+        }
+        return response.body();
     }
 }
